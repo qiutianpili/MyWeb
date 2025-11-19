@@ -1,12 +1,33 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
 $username = trim($_POST['username']);
-$pw = $_POST['pw'];
-$rpw = $_POST['rpw'];
-$email = $_POST['email'];
+$usernameReg = "/^[a-zA-Z0-9]{3,10}$/";
+if(!preg_match($usernameReg,$username)) {
+    echo "<script>alert('（来自后端）用户名只能是由大小写字母、数字构成，且长度为3-10！');history.back();</script>";
+    exit;
+}
+$pw = trim($_POST['pw']);
+$pwReg = "/^[a-zA-Z0-9_\-*]{6,10}$/";
+if(!preg_match($pwReg,$pw)) {
+    echo "<script>alert('（来自后端）密码只能是由大小写字母、数字、下划线、-和*构成，且长度为6-10');history.back();</script>";
+    exit;
+}
+$rpw = trim($_POST['rpw']);
+if($pw !== $rpw) {
+    echo "<script>alert('（来自后端）重复密码必须和密码一致！');history.back();</script>";
+    exit;
+}
+$email = trim($_POST['email']);
+if($email){
+    $emailReg = "/^[a-zA-Z0-9_\-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/";
+    if(!preg_match($emailReg,$email)){
+      echo "<script>alert('（来自后端）邮箱格式不对！');history.back();</script>";
+     exit;
+    }
+}
 $sex = $_POST['sex'];
 $fav = $_POST['fav'];
-if($fav){
+/*if($fav){
     $fav = implode("，",$fav);
 }
 if(!strlen($username)){
@@ -20,17 +41,11 @@ if(!strlen($pw)){
 if($pw !== $rpw){
     echo "<script>alert('重复密码必须和密码一致！');history.back();</script>";
     exit;
-}
+}*/
 $pw = md5($pw);
-
-// 第一步
 $conn = mysqli_connect("localhost","root","root","member3");
-if(!$conn){
-    echo "Error!";
-    exit;
-}
-// 第二步
-mysqli_query($conn,"set names utf8");
+include 'conn.php';
+
 // 判断用户名是否被占用
 $sql = "select * from userinfo where username = '$username'";
 $result = mysqli_query($conn,$sql);

@@ -21,18 +21,14 @@
         .red{
             color: red;
         }
-        .current{
-            color:brown;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
 <div class="main">
-        <?php
-        include 'nav.php';
-        ?>
-    <form action="postReg.php" method="post"> <!--onsubmit="return check()"-->
+    <?php
+    include 'nav.php';
+    ?>
+    <form action="postLogin.php" method="post" onsubmit="return check()">
         <table border="1" align="center" style="width: 90%;border-collapse: collapse;max-width: 500px;" cellpadding="10">
             <tr>
                 <td align="right">用户名</td>
@@ -50,47 +46,7 @@
                     </label>
                 </td>
             </tr>
-            <tr>
-                <td align="right">再次输入密码</td>
-                <td align="left">
-                    <label>
-                        <input style="padding: 5px" type="password" name="rpw" placeholder="再次确认您的密码"><span class="red">*</span>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">邮箱</td>
-                <td align="left">
-                    <label>
-                        <input style="padding: 5px" name="email">
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">性别</td>
-                <td align="left">
-                    <label>
-                        <input style="padding: 5px" type="radio" name="sex" value="男">男
-                    </label>
-                    <label>
-                        <input style="padding: 5px" type="radio" name="sex" value="女">女
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">爱好</td>
-                <td align="left">
-                    <label>
-                        <input style="padding: 5px" type="checkbox" name="fav[]" value="听音乐">听音乐
-                    </label>
-                    <label>
-                        <input style="padding: 5px" type="checkbox" name="fav[]" value="打游戏">打游戏
-                    </label>
-                    <label>
-                        <input style="padding: 5px" type="checkbox" name="fav[]" value="跑步">跑步
-                    </label>
-                </td>
-            </tr>
+
             <tr>
                 <td align="right">
                     <input style="padding: 5px" type="submit">
@@ -115,19 +71,6 @@
         if (!pwReg.test(pw)) {
             alert("密码只能是由大小写字母、数字、下划线、-和*构成，且长度为6-10");
             return false;
-        }
-        let rpw = document.getElementsByName('rpw')[0].value.trim()
-        if(rpw !== pw){
-            alert("密码必须和重复密码相同！")
-            return false;
-        }
-        let email = document.getElementsByName('email')[0].value.trim();
-        let emailReg = /^[a-zA-Z0-9_\-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
-        if (email) {
-            if (!emailReg.test(email)) {
-                alert("邮箱格式不对！");
-                return false;
-            }
         }
     }
 </script>

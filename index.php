@@ -64,18 +64,17 @@
         .main h2 a:hover{
             color:white;
         }
+        .current{
+            color:brown;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 <div class="main">
-    <h1>会员注册管理系统</h1>
-    <h2>
-        <a href="index.php">回到首页</a>
-        <a href="reg.php">会员注册</a>
-        <a href="#">会员登录</a>
-        <a href="#">资料修改</a>
-        <a href="#">后台管理</a>
-    </h2>
+        <?php
+        include 'nav.php';
+        ?>
 </div>
 </body>
 </html>
